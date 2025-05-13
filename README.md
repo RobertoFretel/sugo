@@ -32,7 +32,7 @@ Per questo progetto ho usato bun, un runtime js/ts alternativo a nodejs, averlo 
 
 - Successivamente clona la repo e avvia il server
 
-```tsx
+```sh
 git clone https://github.com/RobertoFretel/sugo.git
 cd sugo // puoi anche rinominarlo come ti pare
 bun install
