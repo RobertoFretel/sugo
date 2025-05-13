@@ -1,11 +1,10 @@
 ---
-title: Rivoluzione russa e stalinismo
-tags:
-  - storia
+titolo: "Rivoluzione russa e stalinismo"
+author: "Roberto Fretel"
 ---
 La Russia prima del 1905 era una **monarchia autocratica** e il potere ce lo aveva solo lo zar, ma in quell'anno, in seguito a delle **insurrezioni popolari, dovette concedere la costituzione** -> si succedettero **3 assemblee nazionali**, dette **"dume"**, e le prime due furono **sciolte quasi subito** dallo zar per le loro **tendenze troppo democratiche**.
 
-> In questo periodo la Russia si distingueva dagli stati europei per la sua arretratezza, la servitù della gleba era stata abolita solo nel 1861 da Alessandro II, ma ancora veniva praticato il latifondo. Inoltre l'industria stentava a prendere piede. 
+> In questo periodo la Russia si distingueva dagli stati europei per la sua arretratezza, la servitùInizio della crisi della gleba era stata abolita solo nel 1861 da Alessandro II, ma ancora veniva praticato il latifondo. Inoltre l'industria stentava a prendere piede. 
 
 Lo zar Nicola II **tentò una politica espansionistica verso l'oriente**, con l'occupazione della **Manciuria**, tale territorio però era **interesse anche del Giappone** e della Gran Bretagna, per questo scoppiò la **guerra russo - giapponese (1904-1905)** che vide la **sconfitta dei russi**.
 

@@ -3,5 +3,5 @@ export const config = {
   baseUrl: 'https://localhost:3000',
   contentDir: 'content',
   outputDir: 'public',
-  templatesDir: 'templates',
+  templatesDir: 'template',
 };

@@ -1,7 +1,5 @@
 ---
-title: Periodo del dopo guerra - I WW
-tags:
-  - storia
+titolo: Periodo del dopo guerra - I WW
 ---
 ## La crisi del dopo guerra
 

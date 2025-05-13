@@ -1,14 +1,15 @@
 import { config } from "../sitemap.config";
-import { getPages } from "./markdown.service";
-import { writePage } from "./render.service";
+import { getPage } from "./markdown.service";
+import { writePage, renderPage } from "./render.service";
+import process from "process";
 
 async function generate () {
-  const posts = await getPages()
+  const page = process.argv[2]
 
-  for (const post of posts) {
-    await writePage(config.outputDir, post.slug, post.html);
-  }
-
+  if (page == undefined) throw Error;
+  const post = await getPage(page)
+  const html = renderPage(post.content, post.data)
+  await writePage(config.outputDir, post.slug, html);
 }
 
 await generate()
