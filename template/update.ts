@@ -1,18 +1,16 @@
 import path from "path"
 import process from "process"
 import { config } from "../sitemap.config"
-import { spawn } from "bun"
+import { generate } from "../src/generate"
 
 const searcher = new Bun.Glob("**/*.md")
-const posts = await Array.fromAsync(searcher.scanSync({
-  cwd: path.join(process.cwd(), config.contentDir)
-}))
 
+export async function updateTemplates () {
+  const posts = await Array.fromAsync(searcher.scanSync({
+    cwd: path.join(process.cwd(), config.contentDir)
+  }))
 
-for (const post of posts) {
-  const sub = spawn({
-    cmd: ["bun", "run", "generate", path.join(config.contentDir, post)]
-  })
-
-  await sub.exited
+  for (const post of posts) {
+    await generate(post)
+  }
 }

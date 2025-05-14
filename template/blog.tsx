@@ -15,7 +15,7 @@ export default function ({ title, author, children } : TemplateProps) {
       </head>
     <body className="w-full h-full m-0 p-0 flex justify-center">
       <main id="app" className="p-4 w-9/10 h-full sm:w-7/10 md:w-6/10">
-        <h1 className="text-6xl font-black my-4">{title}</h1>
+        <h1 className="text-6xl font-black my-4 playfair-display">{title}</h1>
         {children}
       </main>
     </body>

@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "generate": "bun run src/generate.ts",
-    "dev": "bun --watch src/main.ts"
+    "dev": "bun run server.ts"
   },
   "private": true,
   "devDependencies": {

@@ -3,9 +3,14 @@ import { config } from "../sitemap.config";
 import path from "path"
 
 const searcher = new Bun.Glob("**/*.html")
-const server = Bun.serve({
+export const server = () => Bun.serve({
   port: 3000,
   routes: {
+    "/": async () => {
+      const file = Bun.file(path.join(config.outputDir, config.homeDir, "index.html"))
+      if (await file.exists()) return new Response(file)
+      return Response.error()
+    },
     "/api/": {
       GET: async (req) => {
         const { origin } = new URL(req.url)
@@ -24,5 +29,3 @@ const server = Bun.serve({
   },
   fetch: serveStatic("public"),
 })
-
-console.log(`Server iniziato a http://localhost:${server.port}`)

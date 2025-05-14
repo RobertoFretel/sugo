@@ -1,6 +1,9 @@
-import Markdown from "react-markdown";
 import { renderToString } from "react-dom/server";
+import { config } from "../sitemap.config";
 import Template from "../template/blog"
+import Markdown from "react-markdown";
+import { rm } from "node:fs/promises";
+import App from "../template";
 import path from "path";
 
 export function renderPage (content: string, data: { [key: string]: any }) {
@@ -17,13 +20,48 @@ export function renderPage (content: string, data: { [key: string]: any }) {
       }} />
     </Template>
   )
-
-  console.log(html)
+  
   return html
 }
 
-export async function writePage (outDir: string, slug: string, html: string) {
+export async function renderHome () {
+  const html = renderToString(
+    <html className="w-full h-full m-0 p-0">
+    <head>
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Sugo</title>
+      <link rel="stylesheet" href="/stile.css" />
+    </head>
+    <body className="w-full h-full m-0 p-0">
+      <div id="app" className="w-full h-full">
+        <App />
+      </div>
+      <script type="module" src="./home/hidrate.js"></script>
+    </body>
+    </html>
+  )
+
+  await Bun.build({
+    outdir: path.join(config.outputDir, config.homeDir),
+    entrypoints: ["./src/hidrate.tsx"],
+  })
+  return html
+}
+
+export async function writePage (outDir: string, slug: string, subdir:string, html: string) {
   const newSlug = slug.toLowerCase().replaceAll(" ", "-")
-  const dir = path.join(outDir, "blog", newSlug, "index.html")
+  const dir = path.join(outDir, subdir, newSlug, "index.html")
   await Bun.write(dir, html)
+}
+
+export async function deletePage (filepath: string) {
+  const { name, dir } = path.parse(filepath)
+  const file = path.join(
+    "public",
+    dir.split("/").reverse()[0] as string,
+    name.toLowerCase().replaceAll(" ", "-")
+  )
+
+  await rm(file, { recursive: true, force: true })
 }

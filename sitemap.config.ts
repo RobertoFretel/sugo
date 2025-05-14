@@ -3,5 +3,6 @@ export const config = {
   baseUrl: 'https://localhost:3000',
   contentDir: 'content',
   outputDir: 'public',
+  homeDir: "home",
   templatesDir: 'template',
 };

@@ -1,41 +1,33 @@
+const config_path = "./sitemap.config"
+const { config } = await import(config_path)
+
 import chokidar from "chokidar"
 import process from "process"
 import { spawn } from "bun"
-import { config } from "./sitemap.config"
 
-const watcher = chokidar.watch([config.contentDir, config.templatesDir, "src/render.service.tsx"], {
-  ignoreInitial: true,
-})
+import { server } from "./src/main"
+import { deletePage } from "./src/render.service"
+import { generate } from "./src/generate"
+import { updateTemplates } from "./template/update"
 
-const decoder = new TextDecoder()
-const server = spawn({
-  cmd: ["bun", "--watch", "src/main.ts"],
-  stdout: "pipe"
-})
+const watcher = chokidar.watch(
+  [config.contentDir, config.templatesDir, "src/render.service.tsx"],
+  { ignoreInitial: true }
+)
 
-async function background () {
-  let index = 1
-  for await (const chunck of server.stdout) {
-    index++
-    process.stdout.write(`x${index}: ${decoder.decode(chunck)}`)
-  }
-}
-
-background()
+const serve = server()
+console.log(`http://${serve.hostname}:${serve.port}`)
 
 watcher.on("all", async (event, path) => {
-  if (Bun.file(path).type == "text/markdown") {
-    const sub = spawn({
-      cmd: ["bun", "run", "generate", path]
-    })
-
-    await sub.exited
+  console.log(event)
+  if (event != "unlink") {
+    if (Bun.file(path).type == "text/markdown") {
+      generate(path)
+    } else {
+      updateTemplates()
+    }
   } else {
-    const sub = spawn({
-      cmd: ["bun", "run", "template/update.ts"]
-    })
-
-    await sub.exited
+    await deletePage(path)
   }
   
   const tail = spawn({
@@ -47,5 +39,3 @@ watcher.on("all", async (event, path) => {
   await tail.exited
   process.stdout.write(`${path}\n`)
 })
-
-await server.exited
